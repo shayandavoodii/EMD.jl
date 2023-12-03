@@ -7,7 +7,7 @@ function sift!(Eav, decomp, d_osf, nsifts=5)
     if iseven(w)
         w += 1
     end
-    for j in 1:nsifts
+    for _ in 1:nsifts
         stream_minmax(e1, e2, decomp, d_osf)
         e1      .= moving_average(e1, d_osf)
         e2      .= moving_average(e2, d_osf)
@@ -19,10 +19,10 @@ function sift!(Eav, decomp, d_osf, nsifts=5)
     return nothing
 end
 
-function sEMD(signal;maximfs=10,nsifts=2)
+function sEMD(signal; maximfs=10, nsifts=2)
     N     = length(signal)
     a_new = copy(signal)
-    imfs  = ElasticArray{Float64}(undef,N,0)
+    imfs  = ElasticArray{Float64}(undef, N, 0)
     Eav   = zeros(N)
     for i in 1:maximfs
         exs   = find_extrema_count(a_new)
@@ -38,5 +38,5 @@ function sEMD(signal;maximfs=10,nsifts=2)
         append!(imfs, a_new)
         a_new .= Eav
     end
-        return convert(Array,imfs)
+        return convert(Array, imfs)
 end
