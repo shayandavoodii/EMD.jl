@@ -1,5 +1,6 @@
 name          = "EMD"
 authors       = ["Jeff Harrison"]
+uuid          = "592af9be-fb4c-4ea1-98aa-327eb6946b76"
 version       = "0.1.0"
 
 [deps]
