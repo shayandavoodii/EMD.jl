@@ -3,6 +3,7 @@ Empirical Mode Decomposition in Julia
 # Usage
 Install this way.
 ```julia
+using Pkg
 Pkg.add("https://github.com/shayandavoodii/EMD.jl")
 ```
 
