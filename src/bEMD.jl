@@ -35,7 +35,7 @@ function bEMD(s, t; maximfs=5, sparam=0.0)
     sig  = copy(s)
     N    = length(s)
     imfs = ElasticArray{Float64}(undef, N, 0)
-    for i in 1:maximfs
+    for _ in 1:maximfs
         h = bsift(sig, t; sparam=sparam)
         append!(imfs, h)
         sig .-= h
