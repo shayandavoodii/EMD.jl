@@ -1,14 +1,14 @@
 function mirror(A,d::Int=3)
-    w = div(d-1,2) #width of window, d is an ODD integer
+    w  = div(d-1,2) #width of window, d is an ODD integer
     mA = [A[(w+1):-1:2];A;A[lastindex(A)-1:-1:(length(A)-w)]]
 end
 
 function find_extrema(A::Array,d::Int=3)
-    mA = mirror(A)
+    mA    = mirror(A)
     count = 0
-    maxs = Int[]
-    mins = Int[]
-    exts = Int[]
+    maxs  = Int[]
+    mins  = Int[]
+    exts  = Int[]
     for i in 1:lastindex(mA)-d+1
         win = view(mA,i:i+d-1)
         if (win[2] > win[1] && win[2] > win[3])
@@ -35,8 +35,8 @@ function find_extrema_minmax(A::Array,d::Int=3)
 end
 
 function stream_minmax(env1, env2, A, d::Int)
-    a = mirror(A, d)
-    N = length(a)
+    a     = mirror(A, d)
+    N     = length(a)
     upper = UInt32[] #buffer for indices
     lower = UInt32[]
     push!(upper,1)
@@ -81,14 +81,14 @@ function stream_minmax(env1, env2, A, d::Int)
 end
 
 function moving_average(A, d::Int=3)
-    A = mirror(A,d)
-    T = typeof(one(eltype(A))/1)
-    ret = Vector{T}(undef, length(A) - d + 1)
-    id = 1 / d
-    s = sum(view(A, 1:d))
+    A      = mirror(A,d)
+    T      = typeof(one(eltype(A))/1)
+    ret    = Vector{T}(undef, length(A) - d + 1)
+    id     = 1 / d
+    s      = sum(view(A, 1:d))
     ret[1] = s * id
     @inbounds for n = 1:length(ret)-1
-        s += A[n+d] - A[n]
+        s       += A[n+d] - A[n]
         ret[n+1] = s * id
     end
     return ret

@@ -12,28 +12,28 @@ end
 
 function get_spline(s,t,sparam)
     mpt, mps = midpoints(s,t)
-    spl = Spline1D(mpt,mps,bc="extrapolate",s=sparam)
+    spl      = Spline1D(mpt,mps,bc="extrapolate",s=sparam)
     return spl(t)
 end
 
 function bsift(s,t;sparam=0.0)
     count = 1
-    sd = 1.0
+    sd    = 1.0
     hlast = copy(s)
-    hnew = copy(s)
+    hnew  = copy(s)
     while sd > 0.25
-        spls = get_spline(hlast,t,sparam)
-        @. hnew = hlast - spls
-        sd = sum(abs2.(hlast-hnew))/sum(hlast.^2)
+        spls     = get_spline(hlast,t,sparam)
+        @. hnew  = hlast - spls
+        sd       = sum(abs2.(hlast-hnew))/sum(hlast.^2)
         @. hlast = hnew
-        count +=1
+        count   +=1
     end
     return hnew
 end
 
 function bEMD(s,t;maximfs=5,sparam=0.0)
-    sig = copy(s)
-    N=length(s)
+    sig  = copy(s)
+    N    =length(s)
     imfs = ElasticArray{Float64}(undef,N,0)
     for i in 1:maximfs
         h = bsift(sig,t;sparam=sparam)
