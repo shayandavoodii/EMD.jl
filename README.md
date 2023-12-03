@@ -3,7 +3,7 @@ Empirical Mode Decomposition in Julia
 # Usage
 Install this way.
 ```julia
-Pkg.add("https://github.com/jarrison/EMD.jl")
+Pkg.add("https://github.com/shayandavoodii/EMD.jl")
 ```
 
 Set-up a signal to be decomposed using the EMD.
